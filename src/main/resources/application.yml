@@ -7,7 +7,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: hjzwokbzjifnpb
-    password: e1da769fb689ede56f8e99686eba7d11656d73b93f267e61bd84c2bc6488af95
-    url: jdbc:postgresql://ec2-34-197-171-33.compute-1.amazonaws.com/d56n92324kd31g
+    username: yvlrfkzdafqkoi
+    password: 3ece757a5e74bad93a24af7f55f25e509c21de2c5e2878f34b13124566a6c099
+    url: jdbc:postgresql://ec2-54-174-221-35.compute-1.amazonaws.com/dbonui0ra1v3hq
 
