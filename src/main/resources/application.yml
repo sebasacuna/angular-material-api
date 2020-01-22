@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+  http2:
+    enabled: true
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: hjzwokbzjifnpb
+    password: e1da769fb689ede56f8e99686eba7d11656d73b93f267e61bd84c2bc6488af95
+    url: jdbc:postgresql://ec2-34-197-171-33.compute-1.amazonaws.com/d56n92324kd31g
+
