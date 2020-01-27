@@ -7,6 +7,16 @@ public class CollectRequest {
     private Double weight;
     private String symbol;
 
+    public CollectRequest(Long number, String name, Double weight, String symbol) {
+        this.number = number;
+        this.name = name;
+        this.weight = weight;
+        this.symbol = symbol;
+    }
+
+    public CollectRequest() {
+    }
+
     public Long getNumber() {
         return number;
     }

@@ -4,13 +4,14 @@ import com.angular.api.forms.models.entities.Elements;
 import com.angular.api.forms.wsrest.CollectRequest;
 
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 
 public interface ElementService {
 
-    public List<Elements> listElement();
-    public boolean createElement(CollectRequest request);
-    public boolean updateElement(CollectRequest request);
-    public boolean deleteElement(Long id);
+    public ResponseEntity<List<Elements>> listElement();
+    public ResponseEntity<Boolean> createElement(CollectRequest request);
+    public ResponseEntity<Boolean> updateElement(CollectRequest request);
+    public ResponseEntity<Boolean> deleteElement(Long id);
 
 }

@@ -9,6 +9,17 @@ import javax.persistence.Table;
 @Table(name = "element")
 public class Elements {
 
+    public Elements(Long number, String name, Double weight, String symbol) {
+        this.number = number;
+        this.name = name;
+        this.weight = weight;
+        this.symbol = symbol;
+    }
+
+    public Elements() {
+
+    }
+
     @Id
     @Column(name = "number")
     private Long number;
