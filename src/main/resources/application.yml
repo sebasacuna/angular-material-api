@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${port}
   compression:
     enabled: true
   http2:
@@ -7,7 +7,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: yvlrfkzdafqkoi
-    password: 3ece757a5e74bad93a24af7f55f25e509c21de2c5e2878f34b13124566a6c099
-    url: jdbc:postgresql://ec2-54-174-221-35.compute-1.amazonaws.com/dbonui0ra1v3hq
+    username: ${username}
+    password: ${password}
+    url: ${url}
 
