@@ -5,15 +5,14 @@ import com.angular.api.forms.repository.impl.ElementRepository;
 import com.angular.api.forms.services.ElementService;
 import com.angular.api.forms.wsrest.CollectRequest;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ElementServiceImpl implements ElementService {
@@ -31,8 +30,8 @@ public class ElementServiceImpl implements ElementService {
       return new ResponseEntity(
           list, HttpStatus.OK);
     } catch (Exception e) {
-      logger.error("error list elements {}", e);
-      return new ResponseEntity<>(new ArrayList<Elements>(), HttpStatus.INTERNAL_SERVER_ERROR);
+      logger.error("error list elements {e}", e);
+      return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -46,17 +45,17 @@ public class ElementServiceImpl implements ElementService {
     try {
       elementRepository.save(obj);
       return new ResponseEntity(
-          new Boolean(true), HttpStatus.OK);
+          true, HttpStatus.OK);
     } catch (Exception e) {
       logger.error("error create element {}", e);
       return new ResponseEntity(
-          new Boolean(false), HttpStatus.INTERNAL_SERVER_ERROR);
+          false, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   @Override
   public ResponseEntity<Boolean> updateElement(CollectRequest request) {
-    Optional<Elements> objBefore = null;
+    Optional<Elements> objBefore;
     try {
       objBefore = elementRepository.findById(request.getNumber());
       objBefore.get().setWeight(request.getWeight());
@@ -64,11 +63,11 @@ public class ElementServiceImpl implements ElementService {
       objBefore.get().setName(request.getName());
       elementRepository.save(objBefore.get());
       return new ResponseEntity(
-          new Boolean(true), HttpStatus.OK);
+          true, HttpStatus.OK);
     } catch (Exception e) {
-      logger.error("error create element {}", e);
+      logger.error("error create element {e}", e);
       return new ResponseEntity(
-          new Boolean(false), HttpStatus.INTERNAL_SERVER_ERROR);
+          false, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -77,11 +76,11 @@ public class ElementServiceImpl implements ElementService {
     try {
       elementRepository.deleteById(id);
       return new ResponseEntity(
-          new Boolean(true), HttpStatus.OK);
+          true, HttpStatus.OK);
     } catch (Exception e) {
       logger.error("error create element {}", e);
       return new ResponseEntity(
-          new Boolean(false), HttpStatus.INTERNAL_SERVER_ERROR);
+          false, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

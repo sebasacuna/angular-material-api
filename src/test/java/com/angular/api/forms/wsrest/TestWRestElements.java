@@ -28,7 +28,7 @@ public class TestWRestElements {
   @Test
   public void testWRestGetElements() {
 
-    Elements obj = new Elements(1L,"s",22.2,"s");
+    Elements obj = new Elements(1L, "s", 22.2, "s");
     List<Elements> list = new ArrayList<>();
     list.add(obj);
 
@@ -48,7 +48,7 @@ public class TestWRestElements {
   @Test
   public void testWRestPostElements() {
 
-    CollectRequest request = new CollectRequest(1L,"name",2D,"S");
+    CollectRequest request = new CollectRequest(1L, "name", 2D, "S");
 
     ResponseEntity<Boolean> responseEntityMock = new ResponseEntity(new Boolean(true),
         HttpStatus.OK);
@@ -65,7 +65,7 @@ public class TestWRestElements {
   @Test
   public void testWRestPatchElements() {
 
-    CollectRequest request = new CollectRequest(1L,"name",2D,"S");
+    CollectRequest request = new CollectRequest(1L, "name", 2D, "S");
 
     ResponseEntity<Boolean> responseEntityMock = new ResponseEntity(new Boolean(true),
         HttpStatus.OK);

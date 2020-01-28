@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan
 public class FormsApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(FormsApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(FormsApplication.class, args);
+  }
 
 }

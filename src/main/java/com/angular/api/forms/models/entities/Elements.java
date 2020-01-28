@@ -9,60 +9,60 @@ import javax.persistence.Table;
 @Table(name = "element")
 public class Elements {
 
-    public Elements(Long number, String name, Double weight, String symbol) {
-        this.number = number;
-        this.name = name;
-        this.weight = weight;
-        this.symbol = symbol;
-    }
+  public Elements(Long number, String name, Double weight, String symbol) {
+    this.number = number;
+    this.name = name;
+    this.weight = weight;
+    this.symbol = symbol;
+  }
 
-    public Elements() {
+  public Elements() {
 
-    }
+  }
 
-    @Id
-    @Column(name = "number")
-    private Long number;
+  @Id
+  @Column(name = "number")
+  private Long number;
 
-    @Column(name = "name")
-    private String name;
+  @Column(name = "name")
+  private String name;
 
-    @Column(name = "weight")
-    private Double weight;
+  @Column(name = "weight")
+  private Double weight;
 
-    @Column(name = "symbol")
-    private String symbol;
+  @Column(name = "symbol")
+  private String symbol;
 
-    public Long getNumber() {
-        return number;
-    }
+  public Long getNumber() {
+    return number;
+  }
 
-    public void setNumber(Long number) {
-        this.number = number;
-    }
+  public void setNumber(Long number) {
+    this.number = number;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public Double getWeight() {
-        return weight;
-    }
+  public Double getWeight() {
+    return weight;
+  }
 
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
+  public void setWeight(Double weight) {
+    this.weight = weight;
+  }
 
-    public String getSymbol() {
-        return symbol;
-    }
+  public String getSymbol() {
+    return symbol;
+  }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
+  public void setSymbol(String symbol) {
+    this.symbol = symbol;
+  }
 
 }
