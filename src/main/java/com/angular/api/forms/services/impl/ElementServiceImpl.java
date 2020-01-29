@@ -47,7 +47,7 @@ public class ElementServiceImpl implements ElementService {
       return new ResponseEntity(
           count, HttpStatus.OK);
     } catch (Exception e) {
-      logger.error("error count elements {e}", e);
+      logger.error("error count elements {0}", e);
       return new ResponseEntity<>(0L, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -56,9 +56,9 @@ public class ElementServiceImpl implements ElementService {
   public ResponseEntity<List<Elements>> listElementPagination(Integer pageSize, Integer pageIndex) {
     Page<Elements> list;
     Pageable pagination =
-        PageRequest.of( pageIndex, pageSize, Sort.by("number"));
+        PageRequest.of(pageIndex, pageSize, Sort.by("number"));
     try {
-      list =  elementRepository.findAll(pagination);
+      list = elementRepository.findAll(pagination);
       return new ResponseEntity(
           list.getContent(), HttpStatus.OK);
     } catch (Exception e) {

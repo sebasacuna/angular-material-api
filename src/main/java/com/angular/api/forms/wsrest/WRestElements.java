@@ -34,7 +34,7 @@ public class WRestElements {
 
   @GetMapping(path = "elementcount")
   @ResponseBody
-  public ResponseEntity<Long> elements() {
+  public ResponseEntity<Long> elementscount() {
     return service.countElements();
   }
 

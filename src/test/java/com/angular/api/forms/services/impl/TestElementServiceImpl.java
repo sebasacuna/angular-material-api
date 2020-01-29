@@ -3,7 +3,10 @@ package com.angular.api.forms.services.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 
 import com.angular.api.forms.models.entities.Elements;
 import com.angular.api.forms.repository.impl.ElementRepository;
@@ -15,6 +18,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -26,6 +33,9 @@ public class TestElementServiceImpl {
 
   @Mock
   ElementRepository elementRepository;
+
+  @Mock
+  Page<Elements> list;
 
   @Test
   public void testListElement() {
@@ -57,6 +67,76 @@ public class TestElementServiceImpl {
 
     assertNotNull(responseEntity);
     assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+
+  }
+
+  @Test
+  public void testListPagination() {
+
+    Integer pageIndex = 0;
+    Integer pageSize = 5;
+
+    Pageable pagination =
+        PageRequest.of(pageIndex, pageSize, Sort.by("number"));
+
+    when(elementRepository.findAll(pagination)).thenReturn(this.list);
+
+    ResponseEntity<List<Elements>> responseEntity = elementService
+        .listElementPagination(pageSize, pageIndex);
+
+    assertNotNull(responseEntity);
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
+  }
+
+  @Test
+  public void testListPaginationException() {
+
+    Integer pageIndex = 0;
+    Integer pageSize = 5;
+
+    Pageable pagination =
+        PageRequest.of(pageIndex, pageSize, Sort.by("number"));
+
+    given(elementRepository.findAll(pagination)).willAnswer(invocation -> {
+      throw new Exception("Exception");
+    });
+
+    ResponseEntity<List<Elements>> responseEntity = elementService
+        .listElementPagination(pageSize, pageIndex);
+
+    assertNotNull(responseEntity);
+    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+
+  }
+
+  @Test
+  public void testCountElement() {
+
+    Long mockResult = 5L;
+
+    when(elementRepository.countElement()).thenReturn(mockResult);
+
+    ResponseEntity<Long> responseEntity = elementService
+        .countElements();
+
+    assertNotNull(responseEntity);
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
+  }
+
+  @Test
+  public void testCountElementException() {
+
+    Long mockResult = 5L;
+
+    when(elementRepository.countElement()).thenReturn(mockResult);
+
+    ResponseEntity<Long> responseEntity = elementService
+        .countElements();
+
+    assertNotNull(responseEntity);
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
   }
 
