@@ -3,6 +3,7 @@ package com.angular.api.forms.services.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 import com.angular.api.forms.models.entities.Elements;
 import com.angular.api.forms.repository.impl.ElementRepository;
@@ -13,7 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +35,7 @@ public class TestElementServiceImpl {
     List<Elements> list = new ArrayList<>();
     list.add(obj);
 
-    Mockito.when(elementRepository.findAll()).thenReturn(list);
+    when(elementRepository.findAll()).thenReturn(list);
 
     ResponseEntity<List<Elements>> responseEntity = elementService
         .listElement();
@@ -55,8 +55,6 @@ public class TestElementServiceImpl {
     ResponseEntity<List<Elements>> responseEntity = elementService
         .listElement();
 
-    System.out.println(responseEntity.getStatusCode());
-
     assertNotNull(responseEntity);
     assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
 
@@ -68,7 +66,7 @@ public class TestElementServiceImpl {
     Elements obj = new Elements(1L, "s", 22.2, "s");
     CollectRequest collectRequest = new CollectRequest(1L, "s", 22.2, "s");
 
-    Mockito.when(elementRepository.save(Mockito.any(Elements.class))).thenReturn(obj);
+    when(elementRepository.save(any(Elements.class))).thenReturn(obj);
 
     ResponseEntity<Boolean> responseEntity = elementService
         .createElement(collectRequest);
@@ -88,8 +86,8 @@ public class TestElementServiceImpl {
     obj.setSymbol(request.getSymbol());
     obj.setWeight(request.getWeight());
 
-    given(elementRepository.save(Mockito.any(Elements.class))).willAnswer(invocation -> {
-      throw new Exception("Exeption");
+    given(elementRepository.save(any(Elements.class))).willAnswer(invocation -> {
+      throw new Exception("Exception");
     });
 
     ResponseEntity<Boolean> responseEntity = elementService
@@ -107,9 +105,9 @@ public class TestElementServiceImpl {
     Elements objUpdate = new Elements(1L, "ss", 22.2, "s");
     CollectRequest collectRequest = new CollectRequest(1L, "ss", 22.2, "s");
 
-    Mockito.when(elementRepository.findById(collectRequest.getNumber())).thenReturn(
+    when(elementRepository.findById(collectRequest.getNumber())).thenReturn(
         java.util.Optional.of(obj));
-    Mockito.when(elementRepository.save(obj)).thenReturn(objUpdate);
+    when(elementRepository.save(obj)).thenReturn(objUpdate);
 
     ResponseEntity<Boolean> responseEntity = elementService
         .updateElement(collectRequest);
@@ -123,14 +121,13 @@ public class TestElementServiceImpl {
   public void testUpdateElementException() {
 
     Elements obj = new Elements(1L, "s", 22.2, "s");
-    Elements objUpdate = new Elements(1L, "ss", 22.2, "s");
     CollectRequest collectRequest = new CollectRequest(1L, "ss", 22.2, "s");
 
-    Mockito.when(elementRepository.findById(collectRequest.getNumber())).thenReturn(
+    when(elementRepository.findById(collectRequest.getNumber())).thenReturn(
         java.util.Optional.of(obj));
 
-    given(elementRepository.save(Mockito.any(Elements.class))).willAnswer(invocation -> {
-      throw new Exception("Exeption");
+    given(elementRepository.save(any(Elements.class))).willAnswer(invocation -> {
+      throw new Exception("Exception");
     });
 
     ResponseEntity<Boolean> responseEntity = elementService
@@ -144,14 +141,12 @@ public class TestElementServiceImpl {
   @Test
   public void testDeleteElement() {
 
-    Long id = 1L;
-
-    Mockito.doAnswer((i) -> {
+    doAnswer((i) -> {
       return null;
-    }).when(elementRepository).deleteById(Mockito.anyLong());
+    }).when(elementRepository).deleteById(anyLong());
 
     ResponseEntity<Boolean> responseEntity = elementService
-        .deleteElement(Mockito.anyLong());
+        .deleteElement(anyLong());
 
     assertNotNull(responseEntity);
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -161,14 +156,12 @@ public class TestElementServiceImpl {
   @Test
   public void testDeleteElementException() {
 
-    Long id = 1L;
-
-    Mockito.doAnswer((i) -> {
-      throw new Exception("Exeption");
-    }).when(elementRepository).deleteById(Mockito.anyLong());
+    doAnswer((i) -> {
+      throw new Exception("Exception");
+    }).when(elementRepository).deleteById(anyLong());
 
     ResponseEntity<Boolean> responseEntity = elementService
-        .deleteElement(Mockito.anyLong());
+        .deleteElement(anyLong());
 
     assertNotNull(responseEntity);
     assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());

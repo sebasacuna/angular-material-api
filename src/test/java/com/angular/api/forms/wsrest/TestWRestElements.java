@@ -38,7 +38,7 @@ public class TestWRestElements {
     Mockito.when(elementService.listElement()).thenReturn(responseEntityMock);
 
     ResponseEntity<List<Elements>> responseEntity = wRestElements
-        .elements();
+        .elements(0,5);
 
     assertNotNull(responseEntity);
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -50,7 +50,7 @@ public class TestWRestElements {
 
     CollectRequest request = new CollectRequest(1L, "name", 2D, "S");
 
-    ResponseEntity<Boolean> responseEntityMock = new ResponseEntity(new Boolean(true),
+    ResponseEntity<Boolean> responseEntityMock = new ResponseEntity(true,
         HttpStatus.OK);
 
     Mockito.when(elementService.createElement(request)).thenReturn(responseEntityMock);
@@ -67,7 +67,7 @@ public class TestWRestElements {
 
     CollectRequest request = new CollectRequest(1L, "name", 2D, "S");
 
-    ResponseEntity<Boolean> responseEntityMock = new ResponseEntity(new Boolean(true),
+    ResponseEntity<Boolean> responseEntityMock = new ResponseEntity(true,
         HttpStatus.OK);
 
     Mockito.when(elementService.updateElement(request)).thenReturn(responseEntityMock);
@@ -84,7 +84,7 @@ public class TestWRestElements {
 
     Long id = 1L;
 
-    ResponseEntity<Boolean> responseEntityMock = new ResponseEntity(new Boolean(true),
+    ResponseEntity<Boolean> responseEntityMock = new ResponseEntity(true,
         HttpStatus.OK);
 
     Mockito.when(elementService.deleteElement(id)).thenReturn(responseEntityMock);

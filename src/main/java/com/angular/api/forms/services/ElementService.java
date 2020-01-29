@@ -10,6 +10,10 @@ public interface ElementService {
 
   ResponseEntity<List<Elements>> listElement();
 
+  ResponseEntity<List<Elements>> listElementPagination(Integer pageSize, Integer PageIndex);
+
+  ResponseEntity<Long> countElements();
+
   ResponseEntity<Boolean> createElement(CollectRequest request);
 
   ResponseEntity<Boolean> updateElement(CollectRequest request);

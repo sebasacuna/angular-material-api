@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://app.com:4200", maxAge = 3600)
+@CrossOrigin(origins = {"http://app.com:4200","http://localhost:4200"}, maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class WRestElements {
@@ -26,8 +26,16 @@ public class WRestElements {
 
   @GetMapping(path = "element")
   @ResponseBody
-  public ResponseEntity<List<Elements>> elements() {
-    return service.listElement();
+  public ResponseEntity<List<Elements>> elements(
+      @RequestParam(name = "pageSize") Integer pageSize,
+      @RequestParam(name = "pageIndex") Integer pageIndex) {
+    return service.listElementPagination(pageSize, pageIndex);
+  }
+
+  @GetMapping(path = "elementcount")
+  @ResponseBody
+  public ResponseEntity<Long> elements() {
+    return service.countElements();
   }
 
   @PostMapping(path = "element")

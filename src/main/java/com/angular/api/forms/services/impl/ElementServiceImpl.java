@@ -10,6 +10,10 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,6 +40,35 @@ public class ElementServiceImpl implements ElementService {
   }
 
   @Override
+  public ResponseEntity<Long> countElements() {
+    Long count;
+    try {
+      count = elementRepository.countElement();
+      return new ResponseEntity(
+          count, HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("error count elements {e}", e);
+      return new ResponseEntity<>(0L, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Override
+  public ResponseEntity<List<Elements>> listElementPagination(Integer pageSize, Integer pageIndex) {
+    Page<Elements> list;
+    Pageable pagination =
+        PageRequest.of( pageIndex, pageSize, Sort.by("number"));
+    try {
+      list =  elementRepository.findAll(pagination);
+      return new ResponseEntity(
+          list.getContent(), HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("error list elements {e}", e);
+      return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+  }
+
+  @Override
   public ResponseEntity<Boolean> createElement(CollectRequest request) {
     Elements obj = new Elements();
     obj.setName(request.getName());
@@ -58,10 +91,12 @@ public class ElementServiceImpl implements ElementService {
     Optional<Elements> objBefore;
     try {
       objBefore = elementRepository.findById(request.getNumber());
-      objBefore.get().setWeight(request.getWeight());
-      objBefore.get().setSymbol(request.getSymbol());
-      objBefore.get().setName(request.getName());
-      elementRepository.save(objBefore.get());
+      if (objBefore.isPresent()) {
+        objBefore.get().setWeight(request.getWeight());
+        objBefore.get().setSymbol(request.getSymbol());
+        objBefore.get().setName(request.getName());
+        elementRepository.save(objBefore.get());
+      }
       return new ResponseEntity(
           true, HttpStatus.OK);
     } catch (Exception e) {
